@@ -3,10 +3,11 @@ If you fear technology and cannot fathom how then just dump the data and I will 
 If there is anything programmatically lacking that you would like, please suggest it.
 
 Please create a new file in the pending folder to add your event suggestions.
+If you do not know how to git, you can use the doc.
+https://docs.google.com/document/d/1-CixwxfbIIcB4xhrvvZcuCzaYtVjtZYGmuVuV7r0e5U/edit?usp=sharing
 Include your twitter username if you want credit.
 
 Commented example json:
-
 {
   //date of the event or release, Date object
   //enter date in japanese/ISO format
@@ -33,6 +34,7 @@ Commented example json:
   //steins;gate
   //robotics;notes
   //occultic;nine
+  //chaos;child
   //anonymous;code
   //other
   entry: ['chaos;head'],
@@ -49,7 +51,7 @@ Commented example json:
       //keep to under ten sentences
       description:'The first game; where it all began. \
         Chaos;Head was released on PC as a collaboration between Nitroplus and 5pb. \
-        A tale of delusions, deceipt and despair; can you trust the reality which you see before you?',
+        A tale of delusions, deceit and despair; can you trust the reality which you see before you?',
 
       //image source, String
       //image:'https://upload.wikimedia.org/wikipedia/commons/8/8a/Chaos%3BHead.svg',
@@ -76,7 +78,7 @@ Short example json:
       title:'Chaos;Head game released',
       description:'The first game; where it all began. \
         Chaos;Head was released on PC as a collaboration between Nitroplus and 5pb. \
-        A tale of delusions, deceipt and despair; can you trust the reality which you see before you?',
+        A tale of delusions, deceit and despair; can you trust the reality which you see before you?',
       //image:'https://upload.wikimedia.org/wikipedia/commons/8/8a/Chaos%3BHead.svg',
       youtube:'_SrAG0JwfQ8',
       //link:'https://minamisawasenri.com',
