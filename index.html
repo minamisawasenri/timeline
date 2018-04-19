@@ -167,7 +167,7 @@
               </div>
               <div class="aspect-ratio margin-bottom" ng-show="!item.content[lang].image && item.content[lang].youtube">
                 <iframe type="text/html" style="width: 100%; height: 100%;"
-                  src="{{youtubeURL(item.content[lang].youtube)}}"
+                  ng-src="{{youtubeURL(item.content[lang].youtube)}}"
                   frameborder="0"></iframe>
               </div>
               <div class="margin-bottom">
