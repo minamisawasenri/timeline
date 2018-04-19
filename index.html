@@ -129,7 +129,7 @@
 
   			<div
           class="cd-timeline__block js-cd-block"
-          ng-repeat="item in obj"
+          ng-repeat="item in obj | orderBy:'+date'"
           ng-show="(!categoryFilter || item.category.indexOf(categoryFilter) !== -1) && (!entryFilter || item.entry.indexOf(entryFilter) !== -1) && (item.content[lang])">
   				<div class="cd-timeline__img cd-timeline__img--picture js-cd-img"
 						ng-style="{'background-color':stringToColour(item.category[0]), 'color':textColour(stringToColour(item.category[0])), 'text-shadow':'0 0 1em '+textColour(stringToColour(item.category[0]),true)}">
