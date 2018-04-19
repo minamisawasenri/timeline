@@ -163,7 +163,7 @@
                 {{item.content[lang].description}}
               </p>
               <div class="margin-bottom">
-                <img src="{{item.content[lang].image}}"></src>
+                <img ng-src="{{item.content[lang].image}}"></src>
               </div>
               <div class="aspect-ratio margin-bottom" ng-show="!item.content[lang].image && item.content[lang].youtube">
                 <iframe type="text/html" style="width: 100%; height: 100%;"
@@ -184,7 +184,7 @@
                     target="_blank"
                     title="Suggested by: {{twitter}}">
                     <img
-                      src="https://twitter.com/{{twitter}}/profile_image?size=original"
+                      ng-src="https://twitter.com/{{twitter}}/profile_image?size=original"
                       class="twitter-circle">
                     </img>
                   </a>
