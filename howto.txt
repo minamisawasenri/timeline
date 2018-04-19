@@ -1,0 +1,86 @@
+For ease of approval, formatting your data into the correct json makes the process faster.
+If you fear technology and cannot fathom how then just dump the data and I will work it out.
+If there is anything programmatically lacking that you would like, please suggest it.
+
+Please create a new file in the pending folder to add your event suggestions.
+Include your twitter username if you want credit.
+
+Commented example json:
+
+{
+  //date of the event or release, Date object
+  //enter date in japanese/ISO format
+  date: new Date('2008-04-25'),
+
+  //category for filtering tags, Array
+  //tag priority is specified by the order in the array
+  //available category tags:
+  //game - the initial release of any game (not for ports)
+  //port - a port of the game; this includes the initial release and official language ports
+  //anime - the initial airing of the anime
+  //manga - first issue of the manga was released
+  //lightNovel - upon the light novel release
+  //meme - memeworthy event, be it shaman girls or vape fluids
+  //universe - in-universe event, such as third melt
+  //other - fan events, pachinko releases, anything that does not fit into the above categories
+  category: ['game','port'],
+
+  //entry for filtering tags, Array
+  //tag priority is specified by the order in the array
+  //for any where there is significant crossover, you can use multiple entry tags
+  //available entry tags:
+  //chaos;head
+  //steins;gate
+  //robotics;notes
+  //occultic;nine
+  //anonymous;code
+  //other
+  entry: ['chaos;head'],
+
+  //content of event, Object
+  //use the language you write in for the key
+  content: {
+    en:{
+      //title of the event, String
+      title:'Chaos;Head game released',
+
+      //description of the event, String
+      //does not support html, if you need it then inquire
+      //keep to under ten sentences
+      description:'The first game; where it all began. \
+        Chaos;Head was released on PC as a collaboration between Nitroplus and 5pb. \
+        A tale of delusions, deceipt and despair; can you trust the reality which you see before you?',
+
+      //image source, String
+      //image:'https://upload.wikimedia.org/wikipedia/commons/8/8a/Chaos%3BHead.svg',
+
+      //youtube short url, String
+      youtube:'_SrAG0JwfQ8',
+
+      //link destination, String
+      //link:'https://minamisawasenri.com',
+
+      //twitter username of whoever suggested this event, if you want credit
+      twitter: ['minamisawasenri']
+    }
+  }
+}
+
+Short example json:
+{
+  date: new Date('2008-04-25'),
+  category: ['game','port'],
+  entry: ['chaos;head'],
+  content: {
+    en:{
+      title:'Chaos;Head game released',
+      description:'The first game; where it all began. \
+        Chaos;Head was released on PC as a collaboration between Nitroplus and 5pb. \
+        A tale of delusions, deceipt and despair; can you trust the reality which you see before you?',
+      //image:'https://upload.wikimedia.org/wikipedia/commons/8/8a/Chaos%3BHead.svg',
+      youtube:'_SrAG0JwfQ8',
+      //link:'https://minamisawasenri.com',
+      twitter: ['minamisawasenri']
+    }
+  }
+}

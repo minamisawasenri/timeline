@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/png" href="favicon.ico"/>
+	<link href='https://fonts.googleapis.com/css?family=Droid+Serif|Open+Sans:400,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+
+	<title>Science Adventure Series - 10 Year Anniversary</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.js"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+</head>
+
+<style>
+  .selected-button {
+    opacity: 1;
+  }
+  .faded-button {
+    opacity: 0.25;
+  }
+  .modern-button {
+    border: 0;
+    margin: 1px;
+    border-radius: 0.25em;
+    outline: none;
+    padding: 1em 2em;
+    background-color: #ffffff;
+    cursor: pointer;
+  }
+  .twitter-circle {
+    max-width: 2em;
+    max-height: 2em;
+    border-radius: 50%;
+  }
+  .small-button {
+    font-size: 75%;
+    padding: 0.25em 0.75em;
+  }
+  .top-div {
+    padding: 0 0 1em 0;
+  }
+  .twitter-div {
+    float: center;
+  }
+  .aspect-ratio {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56%;
+  }
+  .margin-bottom {
+    margin-bottom: 1em;
+  }
+  .aspect-ratio iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+  }
+	body {
+		background-image: url('img/background.jpg');
+		background-repeat:repeat;
+	}
+
+</style>
+
+<body ng-app="app" ng-controller="controller" class="ng-cloak">
+	<header>
+		<h1><img src="img/title.png" style="max-width: 50%; max-height: 50%; vertical-align: middle"></img></h1>
+	</header>
+  <section>
+    <div style="display: inline;">
+      <button
+        class="modern-button small-button"
+        ng-repeat="cat in categories"
+        ng-click="setCategoryFilter(cat === 'all' ? undefined : cat)"
+        ng-class="{'selected-button':(categoryFilter === cat)||(!categoryFilter && cat === 'all'),'faded-button':(categoryFilter !== cat)&&(categoryFilter || cat !== 'all')}"
+        ng-style="{'background-color':stringToColour(cat), 'color':textColour(stringToColour(cat)), 'text-shadow':'0 0 1em '+textColour(stringToColour(cat),true)}">
+        {{displayFormat(cat)}}
+      </button>
+    </div>
+    <div style="display: inline;">
+      <button
+        class="modern-button small-button"
+        ng-repeat="entry in entries"
+        ng-click="setEntryFilter(entry === 'all' ? undefined : entry)"
+        ng-class="{'selected-button':(entryFilter === entry)||(!entryFilter && entry === 'all'),'faded-button':(entryFilter !== entry)&&(entryFilter || entry !== 'all')}"
+        ng-style="{'background-color':stringToColour(entry), 'color':textColour(stringToColour(entry)), 'text-shadow':'0 0 1em '+textColour(stringToColour(entry),true)}">
+        {{displayFormat(entry)}}
+      </button>
+			<button
+				class="modern-button small-button"
+				ng-repeat="language in languages"
+				ng-click="setLanguage(language)"
+        ng-class="{'selected-button':(language === lang),'faded-button':(language !== lang)}"
+        ng-style="{'background-color':stringToColour(language),}">
+        {{languageFormat(language)}}
+      </button>
+    </div>
+  </section>
+
+	<section class="cd-timeline js-cd-timeline">
+		<div class="cd-timeline__container">
+
+  			<div
+          class="cd-timeline__block js-cd-block"
+          ng-repeat="item in obj"
+          ng-show="(!categoryFilter || item.category.indexOf(categoryFilter) !== -1) && (!entryFilter || item.entry.indexOf(entryFilter) !== -1) && (item.content[lang])">
+  				<div class="cd-timeline__img cd-timeline__img--picture js-cd-img"
+						ng-style="{'background-color':stringToColour(item.category[0]), 'color':textColour(stringToColour(item.category[0])), 'text-shadow':'0 0 1em '+textColour(stringToColour(item.category[0]),true)}">
+						<i class="fa"
+							ng-class="{'fa-gamepad':item.category[0] === 'game','fa-anchor':item.category[0] === 'port','fa-video':item.category[0] === 'anime','fa-images':item.category[0] === 'manga','fa-book':item.category[0] === 'lightNovel','fa-poo':item.category[0] === 'meme','fa-globe':item.category[0] === 'universe','fa-calendar':item.category[0] === 'other'}"></i>
+  				</div> <!-- cd-timeline__img -->
+
+  				<div class="cd-timeline__content js-cd-content">
+
+            <!-- tag start -->
+            <div class="top-div">
+              <button class="modern-button small-button"
+                ng-repeat="entry in item.entry"
+                ng-style="{'background-color':stringToColour(entry), 'color':textColour(stringToColour(entry)), 'text-shadow':'0 0 1em '+textColour(stringToColour(entry),true)}">
+                {{displayFormat(entry)}}
+              </button>
+              <button class="modern-button small-button"
+                ng-repeat="cat in item.category"
+                ng-style="{'background-color':stringToColour(cat), 'color':textColour(stringToColour(cat)), 'text-shadow':'0 0 1em '+textColour(stringToColour(cat),true)}">
+                {{displayFormat(cat)}}
+              </button>
+            </div>
+            <!-- tag end -->
+
+            <!-- content start -->
+            <div>
+    					<h2>
+                {{item.content[lang].title}}
+              </h2>
+    					<p>
+                {{item.content[lang].description}}
+              </p>
+              <div class="margin-bottom">
+                <img src="{{item.content[lang].image}}"></src>
+              </div>
+              <div class="aspect-ratio margin-bottom" ng-show="!item.content[lang].image && item.content[lang].youtube">
+                <iframe type="text/html" style="width: 100%; height: 100%;"
+                  src="{{youtubeURL(item.content[lang].youtube)}}"
+                  frameborder="0"></iframe>
+              </div>
+              <div class="margin-bottom">
+      					<a href="{{item.content[lang].link}}" ng-show="item.content[lang].link"
+                  target="_blank"
+                  class="cd-timeline__read-more">
+                  Link <i class="fa fa-external-link-alt"></i>
+                </a>
+                <!-- twitter start -->
+                <div class="twitter-div">
+                  <a
+                    ng-repeat="twitter in item.content[lang].twitter"
+                    href="https://twitter.com/{{twitter}}"
+                    target="_blank"
+                    title="Suggested by: {{twitter}}">
+                    <img
+                      src="https://twitter.com/{{twitter}}/profile_image?size=original"
+                      class="twitter-circle">
+                    </img>
+                  </a>
+                </div>
+                <!-- twitter end -->
+              </div>
+            </div>
+  					<span class="cd-timeline__date">
+              {{item.date.toISOString().substring(0, 10)}}
+            </span>
+            <!--content end -->
+
+
+  				</div> <!-- cd-timeline__content -->
+  			</div> <!-- cd-timeline__block -->
+		</div>
+	</section> <!-- cd-timeline -->
+
+<script>
+  var app = angular.module("app",[]);
+  app.controller("controller",function($scope,$http,$window,$location,$sce){
+		//default language to english
+    $scope.lang = 'en';
+
+		//available languages (for new languages use the ISO 639-1 code)
+		$scope.languages = ['en','ja'];
+
+		//available category tags
+		//game - the initial release of any game (not for ports)
+		//port - a port of the game; this includes the initial release and official language ports
+		//anime - the initial airing of the anime
+		//manga - first issue of the manga was released
+		//lightNovel - upon the light novel release
+		//meme - memeworthy event, be it shaman girls or vape fluids
+		//universe - in-universe event, such as third melt
+		//other - fan events, pachinko releases, anything that does not fit into the above categories
+    $scope.categories = ['all','game','port','anime','manga','lightNovel','meme','universe','other'];
+
+		//available entry tags
+		//for any where there is significant crossover, you can use multiple entry tags
+    $scope.entries = ['all','chaos;head','steins;gate','robotics;notes','chaos;child','occultic;nine','anonymous;code','other'];
+
+    $scope.setCategoryFilter = function(cat){
+      $scope.categoryFilter = cat;
+    }
+    $scope.setEntryFilter = function(entry){
+      $scope.entryFilter = entry;
+    }
+		$scope.setLanguage = function(language){
+			$scope.lang = language;
+		}
+		$scope.languageFormat = function(language){
+			switch(language){
+				case 'en':
+					return '🇬🇧';
+				case 'ja':
+					return '🇯🇵';
+				default:
+					return '';
+			}
+		}
+    $scope.stringToColour = function(str){
+      var hash = 0;
+      for (var i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+      }
+      var colour = '#';
+      for (var i = 0; i < 3; i++) {
+        var value = (hash >> (i * 8)) & 0xFF;
+        colour += ('00' + value.toString(16)).substr(-2);
+      }
+      return colour;
+    }
+    $scope.youtubeURL = function(str){
+      return $sce.trustAsResourceUrl('https://www.youtube.com/embed/' + str + '?controls=0&disablekb=1&rel=0');
+    }
+    $scope.textColour = function(hex,inverse){
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      if(!result){
+        return inverse ? '#ffffff':'#000000';
+      }
+      var red = parseInt(result[1], 16);
+      var green = parseInt(result[2], 16);
+      var blue = parseInt(result[3], 16);
+  		if ((red*0.299 + green*0.587 + blue*0.114) > 186){
+        return inverse ? '#ffffff':'#000000';
+      }
+      else {
+        return inverse ? '#000000':'#ffffff';
+      }
+    }
+    $scope.displayFormat = function(s){
+      //if capital exists, add space before
+      var o = s.replace(/([A-Z])/g,' $1').trim();
+
+      //capitalise first letter
+      o = o.charAt(0).toUpperCase() + o.slice(1);
+
+      //if semicolon exists, capitalise letter after
+      return o.replace(/;([a-z])/g,function(x){
+        return x.toUpperCase();
+      })
+    }
+    $scope.obj = [{
+      //date of the event or release, Date object
+			//enter date in japanese/ISO format
+      date: new Date('2008-04-25'),
+
+      //category for filtering tags, Array
+      category: ['game','port'],
+
+			//entry for filtering tags, Array
+      entry: ['chaos;head'],
+
+      //content of event, Object
+      //use the language you write in for the key
+      content: {
+        en:{
+					//title of the event, String
+          title:'Chaos;Head game released',
+					//description of the event, String
+					//does not support html, if you need it then inquire
+					//keep to under ten sentences
+          description:'The first game; where it all began. \
+						Chaos;Head was released on PC as a collaboration between Nitroplus and 5pb. \
+						A tale of delusions, deceipt and despair; can you trust the reality which you see before you?',
+
+					//image source, String
+          //image:'https://upload.wikimedia.org/wikipedia/commons/8/8a/Chaos%3BHead.svg',
+
+					//youtube short url, String
+          youtube:'_SrAG0JwfQ8',
+
+					//link destination, String
+          //link:'https://minamisawasenri.com',
+
+					//twitter username of whoever suggested this event, if you want credit
+		      twitter: ['minamisawasenri'],
+        },
+      },
+    },
+    {
+      date: new Date('2009-10-15'),
+      category: ['game','port'],
+      entry:['steins;gate'],
+      content:{
+        en:{
+          title:'Steins;Gate game released',
+          description:'The current most popular entry in the series, Steins;Gate was originally console exclusive to Xbox 360. \
+						The story explores themes of time travel and the existence of world lines, along with the perils of trying to alter the past.',
+          youtube:'tiCNSLJ8Ihc',
+		      twitter: ['minamisawasenri'],
+        }
+      }
+    },
+    {
+      date: new Date('2012-06-28'),
+      category: ['game','port'],
+      entry:['robotics;notes'],
+      content:{
+        en:{
+          title:'Robotics;Notes game released',
+          description:'Robotics;Notes - available at release on Playstation 3 and Xbox 360. \
+						A break from the normal 2d art, Robotics;Notes experimented with 3d models. \
+						Jumping further into the future, we learn more about robotics, augmented reality and realistic mechs. \
+						Just don\'t mention the monopoles.',
+          youtube:'PBoC2CDyy44',
+		      twitter: ['minamisawasenri'],
+        }
+      }
+    },
+    {
+      date: new Date('2014-12-18'),
+      category: ['game','port'],
+      entry:['chaos;child'],
+      content:{
+        en:{
+          title:'Chaos;Child game released',
+          description:'Chaos;Child was cursed from the start; it was originally only released on Xbox One so received poor sales. \
+						Handling the same themes as seen in Chaos;Head, Chaos;Child explores what happened after the events of the first game. \
+						The events which transpire make Chaos;Child my favourite entry in the series thusfar.',
+          youtube:'ooz3q7EAsQU',
+		      twitter: ['minamisawasenri'],
+        }
+      }
+    },
+    {
+      date: new Date('2017-11-9'),
+      category: ['game','port'],
+      entry:['occultic;nine'],
+      content:{
+        en:{
+          title:'Occultic;Nine game released',
+          description:'For the first time, a game was produced after the original entry. \
+						The results were not great. \
+						Out on Playstation 4, Playstation Vita and Xbox One, the Occultic;Nine game failed to expand on the original material and characters. \
+						Concerns with the game were noted after release and a patch was promised with further content. \
+						At least we got some extreme box art.',
+          youtube:'VxP3N3IiOMw',
+		      twitter: ['minamisawasenri'],
+        }
+      }
+    },
+    {
+      date: new Date('2017-03-30'),
+      category: ['game','port'],
+      entry:['chaos;child'],
+      content:{
+        en:{
+          title:'Chaos;Child Love Chu☆Chu!! game released',
+          description:'Another fandisk (for Playstation 4 and Playstation Vita), CC LCC pushed the lewdity to a new level. \
+						What if the events of the original game failed to transpire and instead Takuru goes after the girls (and others)? \
+						Although the story was not as plot-relevant or engaging as CH LCC, it still had some memorable moments.',
+          youtube:'17JzYV59vkY',
+		      twitter: ['minamisawasenri'],
+        }
+      }
+    },
+    {
+      date: new Date('2010-03-25'),
+      category: ['game','port'],
+      entry:['chaos;head'],
+      content:{
+        en:{
+          title:'Chaos;Head Love Chu☆Chu!! game released',
+          description:'The first fandisk (available on Xbox One), CH LCC envelopes you in a world of positive delusions; normie encounters await. \
+						However, some moments take a darker turn and the story fits in well with the original (despite the routes being reasonably similar). \
+						We also have the joy of being introduced to Erin.',
+          youtube:'wwwNhAaEPjk',
+		      twitter: ['minamisawasenri'],
+        }
+      }
+    },
+		{
+			date: new Date('2011-06-16'),
+			category: ['game','port'],
+			entry:['steins;gate'],
+			content:{
+				en:{
+					title:'Steins;Gate Darling game released',
+					description:'',
+					youtube:'29uj77KJODw',
+				}
+			}
+		},{
+			date: new Date('2011-10-28'),
+			category: ['game','port'],
+			entry:['steins;gate','chaos;head'],
+			content:{
+				en:{
+					title:'Steins;Gate 8-bit game released',
+					youtube:'1iVkTECSbqI'
+				}
+			}
+		},{
+			date: new Date('2013-04-25'),
+			category: ['game','port'],
+			entry:['steins;gate'],
+			content:{
+				en:{
+					title:'Steins;Gate Phenogram game released',
+					youtube:'75bR2b0o8qI'
+				}
+			}
+		},{
+			date: new Date('2015-12-10'),
+			category: ['game','port'],
+			entry:['steins;gate'],
+			content:{
+				en:{
+					title:'Steins;Gate 0 game released',
+					youtube:'0getIXnq7xA'
+				}
+			}
+		},
+		/* anime */
+		{
+			date: new Date('2008-10-15'),
+			category: ['anime'],
+			entry:['chaos;head'],
+			content:{
+				en:{
+					title:'Chaos;Head anime begins',
+					description:'The Chaos;Head anime - a showcase of how to not adapt a visual novel. \
+						Some of the more memorable moments include the attack of the runaway construction machine and delusional insects, but on the other hand we did get Super Special. \
+						Unfortunately, many people discover Chaos;Head now through the anime.',
+					youtube:'j0adSLdS8M4',
+					twitter: ['minamisawasenri'],
+				}
+			}
+		},
+		{
+			date: new Date('2011-04-06'),
+			category: ['anime'],
+			entry:['steins;gate'],
+			content:{
+				en:{
+					title:'Steins;Gate anime begins',
+					description:'',
+					youtube:'dd7BILZcYAY',
+				}
+			}
+		},
+		{
+			date: new Date('2013-04-20'),
+			category: ['anime'],
+			entry:['steins;gate'],
+			content:{
+				en:{
+					title:'The Steins;Gate Movie airs',
+					description:'',
+					youtube:'ZeKME9EhHT8',
+				}
+			}
+		},
+		{
+			date: new Date('2012-10-12'),
+			category: ['anime'],
+			entry:['robotics;notes'],
+			content:{
+				en:{
+					title:'Robotics;Notes anime begins',
+					description:'',
+					youtube:'_Ffo_YZnfRA',
+				}
+			}
+		},
+		{
+			date: new Date('2017-01-11'),
+			category: ['anime'],
+			entry:['chaos;child'],
+			content:{
+				en:{
+					title:'Chaos;Child anime begins',
+					description:'',
+					youtube:'v2BN2gbJQlg',
+					twitter: ['minamisawasenri'],
+				}
+			}
+		},
+		{
+			date: new Date('2016-10-09'),
+			category: ['anime'],
+			entry:['occultic;nine'],
+			content:{
+				en:{
+					title:'Occultic;Nine anime begins',
+					description:'',
+					youtube:'uYyUES_uif0',
+				}
+			}
+		},
+		{
+			date: new Date('2018-04-12'),
+			category: ['anime'],
+			entry:['steins;gate'],
+			content:{
+				en:{
+					title:'Steins;Gate 0 anime begins',
+					description:'',
+				}
+			}
+		},{
+			date: new Date('2018-04-25'),
+			category: ['other'],
+			entry:['chaos;head'],
+			content:{
+				en:{
+					title:'10 year anniversary of Chaos;Head release',
+					//this is a special event: for description, start with your twitter name then write your thoughts about the last 10 years
+					description:''
+				}
+			}
+		}
+];
+$scope.obj.sort(function(a,b){
+  return a.date > b.date;
+})
+  });
+</script>
+</body>
+</html>
