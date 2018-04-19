@@ -290,7 +290,7 @@
         return x.toUpperCase();
       })
     }
-    $scope.obj = [{
+    var obj = [{
       //date of the event or release, Date object
 			//enter date in japanese/ISO format
       date: new Date('2008-04-25'),
@@ -562,12 +562,12 @@
 			}
 		}
 ];
-$scope.obj.sort(function(a,b){
+obj.sort(function(a,b){
 	var ta = new Date(a.date).getTime();
 	var tb = new Date(a.date).getTime();
   return ta-tb;
 });
-	  $scope.$apply();
+	  $scope.obj = obj;
   });
 </script>
 </body>
