@@ -563,8 +563,10 @@
 		}
 ];
 $scope.obj.sort(function(a,b){
-  return a.date > b.date;
-})
+	var ta = new Date(a.date).getTime();
+	var tb = new Date(a.date).getTime();
+  return ta-tb;
+});
   });
 </script>
 </body>
