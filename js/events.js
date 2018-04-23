@@ -415,6 +415,20 @@ var otherEvents = [
         description:''
       }
     }
+  },{
+    date: new Date('2015-03-28'),
+    category: ['other'],
+    entry:['anonymous;code','chaos;child','occultic;nine','steins;gate'],
+    content:{
+      en:{
+        title:'Anonymous;Code (and others) announced',
+        description:'Along with revealing the Chaos;Child anime, Occultic;Nine game and Steins;Gate 0, the final announcement of Chiyomaru\'s stream was Anonymous;Code. \
+          Set in 2036, Anonymous;Code involves the ability to save and load reality; using the Gaia Earth simulator to predict the outcome of the world. \
+          Some hints to Anonymous;Code have been made in Occultic;Nine, but it has yet to be released.',
+        youtube:'NVl8slNL9Ko',
+        twitter: ['minamisawasenri'],
+      }
+    }
   }
 ];
 var events = [].concat(gameEvents,portEvents,animeEvents,mangaEvents,lightNovelEvents,memeEvents,universeEvents,otherEvents);
