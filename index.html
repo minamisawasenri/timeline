@@ -55,6 +55,7 @@
   }
   .twitter-div {
     float: center;
+		display: none;
   }
   .aspect-ratio {
     position: relative;
@@ -262,7 +263,7 @@
       return colour;
     }
     $scope.youtubeURL = function(str){
-      return $sce.trustAsResourceUrl('https://www.youtube.com/embed/' + str + '?controls=0&disablekb=1&rel=0');
+      return $sce.trustAsResourceUrl('https://www.youtube-nocookie.com/embed/' + str + '?controls=0&disablekb=1&rel=0');
     }
     $scope.textColour = function(hex,inverse){
       var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
